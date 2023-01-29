@@ -1,0 +1,14 @@
+
+public class Exception_Handling {
+
+	public static int fact(int n) {
+		
+	}
+	
+	public static void main(String[] args) {
+		String s = null;
+		System.out.println(s.length());
+
+	}
+
+}

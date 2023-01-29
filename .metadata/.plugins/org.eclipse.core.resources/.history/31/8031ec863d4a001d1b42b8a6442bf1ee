@@ -1,0 +1,213 @@
+import java.util.Scanner;
+
+
+//this is for the pair class of reverse the LL in pair format (head,tail).....
+class DoubleNode {
+	Node<Integer> head;
+	Node<Integer> tail;
+	
+	//constructor
+	DoubleNode(){
+		
+	}
+	DoubleNode(Node<Integer> head,Node<Integer> tail){
+		this.head = head;
+		this.tail = tail;
+	}
+}
+
+public class LinkedListUse {
+	
+	
+//	public static Node<Integer> createLinkedlist() {
+//		
+//		Node<Integer> n1; //this is only create the reference 
+//		n1 = new Node<>(10);//here new Node is created
+//		Node<Integer> n2  = new Node<>(20);
+//		Node<Integer> n3  = new Node<>(30);
+//		Node<Integer> n4  = new Node<>(40); 
+//		n1.next = n2;
+////		System.out.println(" n1 " + n1 + " data " +n1.data + " next " + n1.next);
+//		n2.next = n3;
+////		System.out.println(" n2 " + n2 + " data " +n2.data + " next " + n2.next);
+//		n3.next = n4;
+////		System.out.println(" n3 " + n3 + " data " +n3.data + " next " + n3.next);
+////		System.out.println(" n4 " + n4 + " data " +n4.data + " next " + n4.next);
+//		n4.next = null;
+//		return n1;
+//		
+//	}
+	
+	
+	//need to print the Entire LinkedList
+	
+	public static void print(Node<Integer> head) {
+//		System.out.println("print address of head "+ head);
+		
+		//good practice for the good coder in the programming
+		Node<Integer> temp = head;
+		
+		while(temp != null) {
+			System.out.print(temp.data+" ");
+			temp = temp.next;
+		}
+		System.out.println();
+//		temp = head.next;
+		//printing the data part
+//		System.out.println(head.next);//this will get the address of the second node
+//		System.out.println(head.next.data); //data of next node
+//		System.out.println(head.next.next.data);//3rd index data
+//		System.out.println(head.next.next.next.data);//4th data
+//		while(temp != null) {
+//			System.out.print(temp.data+" ");
+//			temp = temp.next;
+//		}
+//		System.out.println();
+//		
+		
+		
+	}
+	
+	//increment the node value 
+	
+//	public static void increment(Node<Integer> head) {
+//		
+//		Node<Integer> tem = head;
+//		while(tem != null) {
+//			tem.data++;
+//			tem = tem.next;
+//		}
+//	}
+	
+	
+	//user input to the LinkedList  Value
+	   ///time complexity is  O(N^2) here not that  much effective...
+	public static Node<Integer> takeInput() {
+		Scanner s = new Scanner(System.in);
+		int data = s.nextInt();
+		Node<Integer> head = null,tail = null; 
+		while(data != -1) {
+			 Node<Integer> currentNode =  new Node<Integer>(data);//create and put the value of the first node
+			 if(head == null) {
+				 //Make this node as head node
+				 head = currentNode;
+				 tail = currentNode;
+			 }else {
+				 //connection is here
+				 
+//				 Node<Integer> tail = head;//this is the last node which is called in the linkedList
+//				 while(tail.next != null) {
+//					 tail = tail.next; 
+//				 }
+//				 //now tail refer to last Node
+//				 //connect current node after last node tail.next
+//				 tail.next = currentNode;//here connection happen
+				 
+				 
+				 ///@@@@@@@@@@@@@@@@###########################################@@@@@@@@@@@@@@
+				               //O(N) time complexity
+				 tail.next = currentNode;//this is for the connection b/t the nodes...
+				 tail = currentNode;//tail = tail.next;//this is for the moving of the tail pointer..
+				 
+			 }
+			 
+//			 currentNode.next = null; 
+			data = s.nextInt();
+		}
+		return head;
+	}
+	
+	public static void printRecurr(Node<Integer> head) {
+		//base case of recursion
+		if(head == null) return;
+//		System.out.print(head.data+" ");//recursive LL PRINT
+		printRecurr(head.next);
+		System.out.print(head.data+" ");//reverse recursive LL PRINT
+	}
+	
+	
+	public static Node<Integer> insertRecur(Node<Integer> head,int ele,int pos){
+		
+		//most important case if index or position is not valid then i have to deal with special case
+		if(head == null && pos > 0) {
+			return head;
+		}
+		
+		
+		//normal case when we want to insert at 0 position 
+		if(pos == 0) {
+			Node<Integer> insertNode = new Node<Integer>(ele);
+			insertNode.next = head;
+			head = insertNode;
+			return head;
+			
+		}else { //this is other position work except zero(0) ...
+			    // in recursive format 
+			Node<Integer> smallR = insertRecur(head.next,ele,pos-1);//passing the value in recursive function
+			head.next = smallR;// this will collect the recursive function address data and put make connection to the LinkList
+			return head; 
+		}
+		
+		
+	}
+	
+	
+	
+	
+	//Reverse A LinkedList in pair...
+	        //return type is object of this class
+	public static DoubleNode  reverseLLPair(Node<Integer> head) {
+		DoubleNode ans; //this is the reference type
+		//base case 
+		if(head == null || head.next == null) {
+			ans = new DoubleNode(); //here i have created the object
+			ans.head = head;
+			ans.tail =  head;
+			return ans;//because return type is object
+		}
+		//this DoubleNode will have both head and tail of reverse LL
+		DoubleNode smallLL = reverseLLPair(head.next);
+		smallLL.tail.next = head;
+	    head.next  = null;
+	    
+	    //now need to return the Double node
+	    
+	    ans = new DoubleNode();
+	    ans.head = smallLL.head;
+	    ans.tail =head;
+	    return ans;
+		
+		
+	}
+
+	public static void main(String[] args) {
+		
+//		Node n1 = new Node(10);
+//		Node<Integer> n1 = new Node<>(10);
+//		Node<String> s1 = new Node<>("divyansh_Singh");
+//		System.out.println(n1);
+//		System.out.println(s1);
+//		System.out.println(n1.data);
+//		System.out.println(n1.next);
+//		System.out.println(s1.data);
+//		System.out.println(s1.next);
+		
+		
+//		Node<Integer> head = createLinkedlist();//head is the reference only but data_type is Node
+//		System.out.println("print the head in the main "+ head);
+		
+//		print(head);
+//		
+//		increment(head);
+//		print(head); 
+		
+		Node<Integer> ans = takeInput();
+//		Node<Integer> res = insertRecur(null,20,0);
+		DoubleNode  res = reverseLLPair(ans);
+		print(res.tail);
+		
+		
+
+	}
+
+}

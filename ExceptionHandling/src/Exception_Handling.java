@@ -1,0 +1,41 @@
+
+public class Exception_Handling {
+
+//	public static int fact(int n) {
+//		
+//	}
+	
+	public static int divide(int a,int b) throws DivideByZeroException {
+		if(b == 0) {
+//			throw new ArithmeticException();
+			throw new DivideByZeroException(); 
+		}
+		return a/b;
+	}
+//	public static void main(String[] args) throws DivideByZeroException {
+////		String s = null;
+////		System.out.println(s.length());
+////		System.out.println(8/0);
+////		System.out.println("main");
+//		divide(10,0);
+//
+//	}
+	
+	
+	
+	public static void main(String[] args) {
+//		String s = null;
+//		System.out.println(s.length());
+//		System.out.println(8/0);
+//		System.out.println("main");
+		try {
+			divide(10,0);
+			System.out.println("with in try");
+		} catch (DivideByZeroException e) {
+			System.out.println("Divide by zero Exception held");
+//			e.printStackTrace();
+		}
+		System.out.println("This is the main exception ");
+
+	}
+}
